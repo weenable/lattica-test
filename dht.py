@@ -8,12 +8,12 @@ def main():
     args = sys.argv[1:]
     bootstraps = [args[0]] if args else None
 
-    # wait connected
-    time.sleep(1)
-
     if bootstraps:
         # init
         lattica = Lattica.builder().with_bootstraps(bootstraps).build()
+
+        # wait connected
+        time.sleep(1)
 
         print("=== simple get test ===")
         result = lattica.get("name")
@@ -29,6 +29,9 @@ def main():
     else:
         # init
         lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/18080","/ip4/0.0.0.0/udp/18080/quic-v1", "/ip4/0.0.0.0/tcp/0/ws"]).build()
+
+        # wait connected
+        time.sleep(1)
 
         # simple store
         lattica.store("name", "ween")

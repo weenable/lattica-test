@@ -8,12 +8,12 @@ def main():
     bootstraps = [args[0]] if args else None
     req_cid = args[0] if args else None
 
-    # wait connected
-    time.sleep(1)
-
     if bootstraps:
         # init
         lattica = Lattica.builder().with_bootstraps(bootstraps).build()
+
+        # wait connected
+        time.sleep(1)
 
         peers = lattica.get_providers(req_cid)
         print(f"get providers success, peers: {peers}")
@@ -25,6 +25,9 @@ def main():
     else:
         # init
         lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/18080","/ip4/0.0.0.0/udp/18080/quic-v1", "/ip4/0.0.0.0/tcp/0/ws"]).build()
+
+        # wait connected
+        time.sleep(1)
 
         # generate resource 10MB
         with open("test.bin", "rb") as f:

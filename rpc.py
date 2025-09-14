@@ -31,12 +31,12 @@ def main():
     args = sys.argv[1:]
     bootstrap = args[0] if args else None
 
-    # wait connected
-    time.sleep(1)
-
     if bootstrap:
         # init
         lattica = Lattica.builder().with_bootstraps([bootstrap]).build()
+
+        # wait connected
+        time.sleep(1)
         service = TestService(lattica)
 
         bootstrap_addr, server_peer_id = parse_multiaddr(bootstrap)
@@ -49,6 +49,9 @@ def main():
     else:
         # init
         lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/18080","/ip4/0.0.0.0/udp/18080/quic-v1", "/ip4/0.0.0.0/tcp/0/ws"]).build()
+
+        # wait connected
+        time.sleep(1)
         TestService(lattica)
 
     try:
