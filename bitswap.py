@@ -3,30 +3,39 @@ import sys
 import time
 from lattica import Lattica
 
-def generate_resource():
-    with open("test_10m.bin", "wb") as f:
-        f.write(b"\0" * 10 * 1024 * 1024)
-
 def main():
     args = sys.argv[1:]
-    bootstrap_nodes = args if args else []
+    bootstraps = [args[0]] if args else None
+    req_cid = args[0] if args else None
 
-    if bootstrap_nodes:
-        lattica = Lattica.builder() \
-            .with_bootstraps(bootstrap_nodes) \
-            .build()
+    # wait connected
+    time.sleep(1)
 
+    if bootstraps:
+        # init
+        lattica = Lattica.builder().with_bootstraps(bootstraps).build()
 
+        peers = lattica.get_providers(req_cid)
+        print(f"get providers success, peers: {peers}")
+
+        data = lattica.get_block(req_cid)
+        with open("test.bin", "wb") as f:
+            f.write(data)
 
     else:
-        # init lattica
+        # init
         lattica = Lattica.builder().build()
 
-        # generate file resource
-        generate_resource()
+        # generate resource 10MB
+        with open("test.bin", "rb") as f:
+            data = f.read()
 
-        # put block
+            # put block
+            cid = lattica.put_block(data)
+            print(f"put block success, cid {cid}")
 
+            # start provider
+            lattica.start_providing(cid)
 
     try:
         while True:

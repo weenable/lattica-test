@@ -5,17 +5,15 @@ from lattica import Lattica
 
 def main():
     args = sys.argv[1:]
-    bootstrap_nodes = args if args else []
-
-    if bootstrap_nodes:
-        lattica = Lattica.builder() \
-            .with_bootstraps(bootstrap_nodes) \
-            .build()
-
-    else:
-        lattica = Lattica.builder().build()
+    bootstraps = [args[0]] if args else None
 
     try:
+        # init
+        if bootstraps:
+            lattica = Lattica.builder().with_bootstraps(bootstraps).build()
+        else:
+            lattica = Lattica.builder().build()
+
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
