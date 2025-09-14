@@ -86,6 +86,8 @@ async def main():
 
         # wait connected
         time.sleep(1)
+        while True:
+            time.sleep(10)
 
     try:
         while True:
