@@ -48,7 +48,7 @@ def main():
 
     else:
         # init
-        lattica = Lattica.builder().build()
+        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/18080","/ip4/0.0.0.0/udp/18080/quic-v1", "/ip4/0.0.0.0/tcp/0/ws"]).build()
         TestService(lattica)
 
     try:
