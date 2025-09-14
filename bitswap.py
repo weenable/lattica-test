@@ -6,7 +6,7 @@ from lattica import Lattica
 def main():
     args = sys.argv[1:]
     bootstraps = [args[0]] if args else None
-    req_cid = args[0] if args else None
+    req_cid = args[1] if args else None
 
     if bootstraps:
         # init
