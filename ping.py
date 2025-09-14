@@ -61,7 +61,7 @@ async def main():
             print(f"  - Before RTT: {before_rtt * 1000}ms")
 
             # wait for next ping finish
-            await asyncio.sleep(1)
+            await asyncio.sleep(5)
 
             after_rtt = lattica.get_peer_rtt(server_peer_id)
             print(f"  - After RTT: {after_rtt * 1000}ms")
