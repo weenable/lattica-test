@@ -58,17 +58,17 @@ async def main():
             print(f"\nPing test {i}/20:")
 
             before_rtt = lattica.get_peer_rtt(server_peer_id)
-            print(f"  - Before RTT: {before_rtt}s")
+            print(f"  - Before RTT: {before_rtt * 1000}ms")
 
             # wait for next ping finish
             await asyncio.sleep(1)
 
             after_rtt = lattica.get_peer_rtt(server_peer_id)
-            print(f"  - After RTT: {after_rtt}s")
+            print(f"  - After RTT: {after_rtt * 1000}ms")
 
             if before_rtt is not None and after_rtt is not None:
                 diff = abs(after_rtt - before_rtt)
-                print(f"  - RTT Change: {diff:.6f}s")
+                print(f"  - RTT Change: {diff * 1000:.6f}ms")
 
             peer_info = lattica.get_peer_info(server_peer_id)
             if peer_info:
