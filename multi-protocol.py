@@ -33,7 +33,7 @@ def main():
     if bootstrap_nodes:
         lattica = Lattica.builder() \
             .with_bootstraps(bootstrap_nodes) \
-            .with_relay_servers(["ip4/3.1.132.169/tcp/18080/p2p/12D3KooWLX7MWuzi1Txa5LyZS4eTQ2tPaJijheH8faHggB9SxnBu"]) \
+            .with_relay_servers(["/ip4/3.1.132.169/tcp/18080/p2p/12D3KooWLX7MWuzi1Txa5LyZS4eTQ2tPaJijheH8faHggB9SxnBu"]) \
             .build()
 
     else:
