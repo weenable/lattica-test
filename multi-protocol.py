@@ -33,13 +33,13 @@ def main():
     if bootstrap_nodes:
         lattica = Lattica.builder() \
             .with_bootstraps(bootstrap_nodes) \
-            .with_listen_addrs(["/ip4/0.0.0.0/tcp/17070"]) \
+            .with_listen_addrs(["/ip4/0.0.0.0/udp/17070/quic-v1"]) \
             .with_relay_servers(["/ip4/3.1.132.169/tcp/18080/p2p/12D3KooWLX7MWuzi1Txa5LyZS4eTQ2tPaJijheH8faHggB9SxnBu"]) \
             .with_dcutr(True) \
             .build()
 
     else:
-        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]).build()
+        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/udp/19090/quic-v1"]).build()
 
     try:
         while True:
