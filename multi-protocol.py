@@ -43,8 +43,6 @@ def main():
 
     try:
         while True:
-            if len(bootstrap_nodes) > 0:
-                print("peer ip: ", lattica.get_peer_addresses(server_peer_id))
             time.sleep(1)
     except KeyboardInterrupt:
         pass
