@@ -33,10 +33,11 @@ def main():
     if bootstrap_nodes:
         lattica = Lattica.builder() \
             .with_bootstraps(bootstrap_nodes) \
+            .with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]) \
             .build()
 
     else:
-        lattica = Lattica.builder().build()
+        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]).build()
 
     try:
         while True:
