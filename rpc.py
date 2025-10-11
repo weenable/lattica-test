@@ -60,7 +60,7 @@ def parse_multiaddr(addr_str: str):
     return addr_str, peer_id
 
 class TestService(ConnectionHandler):
-    @rpc_stream
+    @rpc_method
     def stream_rpc(self, request: MockProtoRequest ) -> MockProtoResponse:
         return MockProtoResponse(
             message=f"Processed data of size {len(request.data)}",
@@ -73,7 +73,7 @@ def main():
 
     if bootstrap:
         # init
-        lattica = Lattica.builder().with_bootstraps([bootstrap]).with_listen_addrs(["/ip4/0.0.0.0/udp/19090/quic-v1"]).with_mdns(False).build()
+        lattica = Lattica.builder().with_bootstraps([bootstrap]).with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]).with_mdns(False).build()
 
         # wait connected
         time.sleep(1)
@@ -95,7 +95,7 @@ def main():
 
     else:
         # init
-        lattica = Lattica.builder().with_mdns(False).with_listen_addrs(["/ip4/0.0.0.0/udp/19090/quic-v1"]).build()
+        lattica = Lattica.builder().with_mdns(False).with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]).build()
 
         # wait connected
         TestService(lattica)
