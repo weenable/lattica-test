@@ -60,7 +60,7 @@ def parse_multiaddr(addr_str: str):
     return addr_str, peer_id
 
 class TestService(ConnectionHandler):
-    @rpc_method
+    @rpc_stream
     def stream_rpc(self, request: MockProtoRequest ) -> MockProtoResponse:
         return MockProtoResponse(
             message=f"Processed data of size {len(request.data)}",
