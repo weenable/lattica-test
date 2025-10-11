@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-from lattica import Lattica, rpc_stream, ConnectionHandler
+import asyncio
 import time
 import sys
+from lattica import Lattica, rpc_method, rpc_stream, rpc_stream_iter, ConnectionHandler
 import pickle
 
 class MockProtoRequest:
@@ -72,7 +73,7 @@ def main():
 
     if bootstrap:
         # init
-        lattica = Lattica.builder().with_bootstraps([bootstrap]).build()
+        lattica = Lattica.builder().with_bootstraps([bootstrap]).with_mdns(False).build()
 
         # wait connected
         time.sleep(1)
@@ -80,17 +81,21 @@ def main():
 
         bootstrap_addr, server_peer_id = parse_multiaddr(bootstrap)
 
+        total_size = 16 * 1024
+        request = MockProtoRequest(data=bytearray(total_size))
         stub = service.get_stub(server_peer_id)
-        future = stub.stream_rpc()
+        start_time = time.time()
+        future = stub.stream_rpc(request)
         result = future.result()
-        print(result.message)
+        transfer_time = (time.time() - start_time)*1000
+        print(f"result: {result.message}")
+        print(f"Total transfer time: {transfer_time:.2f}ms")
 
     else:
         # init
-        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/19090","/ip4/0.0.0.0/udp/19090/quic-v1", "/ip4/0.0.0.0/tcp/0/ws"]).build()
+        lattica = Lattica.builder().with_mdns(False).with_listen_addrs(["/ip4/0.0.0.0/tcp/19090","/ip4/0.0.0.0/udp/19090/quic-v1"]).build()
 
         # wait connected
-        time.sleep(1)
         TestService(lattica)
 
     try:
