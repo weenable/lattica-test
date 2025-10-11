@@ -26,15 +26,12 @@ def main():
     args = sys.argv[1:]
     bootstrap_nodes = [args[0]] if args else []
 
-    server_peer_id = ""
-    if len(bootstrap_nodes) > 0:
-        bootstrap_addr, server_peer_id = parse_multiaddr(bootstrap_nodes[0])
-
     if bootstrap_nodes:
         lattica = Lattica.builder() \
             .with_bootstraps(bootstrap_nodes) \
-            .with_listen_addrs(["/ip4/0.0.0.0/tcp/17070"]) \
-            .with_relay_servers(["/ip4/3.1.132.169/tcp/18080/p2p/12D3KooWLX7MWuzi1Txa5LyZS4eTQ2tPaJijheH8faHggB9SxnBu"]) \
+            .with_listen_addrs(["/ip4/0.0.0.0/udp/17070/quic-v1"]) \
+            .with_relay_servers(["/ip4/47.236.20.72/tcp/18080/p2p/12D3KooWSo67G9nW1hSrzZpVESn1Q8wDshF2Uyh8qfcg5D6yJ74q"]) \
+            .with_protocol("/12D3KooWEP3aVZo1XQztmjX14nwJUJUt3bdLaCEuwGhAYWpCzLBo") \
             .with_dcutr(True) \
             .build()
 
