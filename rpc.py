@@ -81,19 +81,21 @@ def main():
 
         bootstrap_addr, server_peer_id = parse_multiaddr(bootstrap)
 
-        total_size = 16 * 1024
-        request = MockProtoRequest(data=bytearray(total_size))
-        stub = service.get_stub(server_peer_id)
-        start_time = time.time()
-        future = stub.stream_rpc(request)
-        result = future.result()
-        transfer_time = (time.time() - start_time)*1000
-        print(f"result: {result.message}")
-        print(f"Total transfer time: {transfer_time:.2f}ms")
+        while True:
+            total_size = 16 * 1024
+            request = MockProtoRequest(data=bytearray(total_size))
+            stub = service.get_stub(server_peer_id)
+            start_time = time.time()
+            future = stub.stream_rpc(request)
+            result = future.result()
+            transfer_time = (time.time() - start_time)*1000
+            print(f"result: {result.message}")
+            print(f"Total transfer time: {transfer_time:.2f}ms")
+            time.sleep(1)
 
     else:
         # init
-        lattica = Lattica.builder().with_mdns(False).with_listen_addrs(["/ip4/0.0.0.0/tcp/19090","/ip4/0.0.0.0/udp/19090/quic-v1"]).build()
+        lattica = Lattica.builder().with_mdns(False).with_listen_addrs(["/ip4/0.0.0.0/udp/19090/quic-v1"]).build()
 
         # wait connected
         TestService(lattica)
