@@ -28,15 +28,17 @@ def main():
 
     if bootstrap_nodes:
         lattica = Lattica.builder() \
-            .with_bootstraps(bootstrap_nodes) \
-            .with_listen_addrs(["/ip4/0.0.0.0/udp/17070/quic-v1"]) \
-            .with_relay_servers(["/ip4/47.236.20.72/tcp/18080/p2p/12D3KooWSo67G9nW1hSrzZpVESn1Q8wDshF2Uyh8qfcg5D6yJ74q"]) \
+            .with_listen_addrs(["/ip4/0.0.0.0/udp/0/quic-v1"]) \
+            .with_relay_servers([ "/dns4/relay-lattica.gradient.network/udp/18080/quic-v1/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",
+    "/dns4/relay-lattica.gradient.network/tcp/18080/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",]) \
+            .with_bootstraps([ "/dns4/bootstrap-lattica.gradient.network/udp/18080/quic-v1/p2p/12D3KooWJHXvu8TWkFn6hmSwaxdCLy4ZzFwr4u5mvF9Fe2rMmFXb",
+    "/dns4/bootstrap-lattica.gradient.network/tcp/18080/p2p/12D3KooWJHXvu8TWkFn6hmSwaxdCLy4ZzFwr4u5mvF9Fe2rMmFXb",]) \
             .with_protocol("/12D3KooWEP3aVZo1XQztmjX14nwJUJUt3bdLaCEuwGhAYWpCzLBo") \
             .with_dcutr(True) \
             .build()
 
     else:
-        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/tcp/19090"]).build()
+        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/udp/0/quic-v1"]).build()
 
     try:
         while True:
