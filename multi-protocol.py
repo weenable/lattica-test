@@ -24,6 +24,7 @@ def parse_multiaddr(addr_str: str):
 
 def main():
     lattica = Lattica.builder() \
+            .with_mdns(False) \
             .with_listen_addrs(["/ip4/0.0.0.0/udp/0/quic-v1"]) \
             .with_relay_servers([ "/dns4/relay-lattica.gradient.network/udp/18080/quic-v1/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",
     "/dns4/relay-lattica.gradient.network/tcp/18080/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",]) \
