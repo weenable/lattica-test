@@ -23,11 +23,7 @@ def parse_multiaddr(addr_str: str):
     return addr_str, peer_id
 
 def main():
-    args = sys.argv[1:]
-    bootstrap_nodes = [args[0]] if args else []
-
-    if bootstrap_nodes:
-        lattica = Lattica.builder() \
+    lattica = Lattica.builder() \
             .with_listen_addrs(["/ip4/0.0.0.0/udp/0/quic-v1"]) \
             .with_relay_servers([ "/dns4/relay-lattica.gradient.network/udp/18080/quic-v1/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",
     "/dns4/relay-lattica.gradient.network/tcp/18080/p2p/12D3KooWDaqDAsFupYvffBDxjHHuWmEAJE4sMDCXiuZiB8aG8rjf",]) \
@@ -36,9 +32,6 @@ def main():
             .with_protocol("/12D3KooWEP3aVZo1XQztmjX14nwJUJUt3bdLaCEuwGhAYWpCzLBo") \
             .with_dcutr(True) \
             .build()
-
-    else:
-        lattica = Lattica.builder().with_listen_addrs(["/ip4/0.0.0.0/udp/0/quic-v1"]).build()
 
     try:
         while True:
